@@ -76,8 +76,10 @@ func (r autotaskController) AddAutoItem(ctx *gin.Context) {
 
 // FindAutoItemByDoTime 根据执行时间去查找自动化任务
 func (r autotaskController) FindAutoItemByDoTime(ctx *gin.Context) {
-	now := time.Now()
+	location, err := time.LoadLocation("Asia/Shanghai")
+	now := time.Now().In(location)
 	formatted := now.Format("15:04")
+	zlog.Info(formatted)
 	autoItem, err := r.FindAutoItem(formatted)
 	if err != nil {
 		r.Failed(ctx, Failed, err.Error())
