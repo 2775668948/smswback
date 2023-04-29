@@ -52,7 +52,7 @@ func (r AutoTaskService) AddNewAutoItem(task AutoTask) error {
 // FindAutoItem 根据执行时间去查找自动化任务
 func (r AutoTaskService) FindAutoItem(dotime string) (*AutoTask, error) {
 	var autoItem AutoTask
-	zlog.Info("当前时间格式是-->", dotime)
+	zlog.Debug("当前时间-->", dotime)
 	err := Db.Where("dotime = ?", dotime).Where("show", 1).First(&autoItem).Error
 	if err != nil {
 		return nil, err
